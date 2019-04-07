@@ -6,6 +6,7 @@ COPY scripts/boot /usr/local/
 COPY static/.bash_history /root
 
 RUN bash /tmp/basics
+COPY static/default.template /etc/nginx/sites-available
 
 VOLUME /etc/letsencrypt /etc/nginx
 
