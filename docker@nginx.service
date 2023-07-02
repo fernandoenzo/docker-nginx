@@ -1,5 +1,5 @@
 [Unit]
-Description=Docker Nginx Proxy container
+Description=Docker Nginx container
 PartOf=docker.service
 After=docker.service network-online.target
 Wants=network-online.target
@@ -9,10 +9,10 @@ TimeoutStartSec=infinity
 ExecStartPre=/usr/bin/docker run -d -it --init --rm \
              -p 80:80 -p 443:443 \
              -v letsEncrypt:/etc/letsencrypt -v nginx:/etc/nginx \
-             --name Nginx-Proxy --hostname Nginx-Proxy \
-             fernandoenzo/nginx
-ExecStart=/usr/bin/docker logs -f Nginx-Proxy
-ExecStop=-/usr/bin/docker stop Nginx-Proxy
+             --name Nginx --hostname Nginx \
+             ghcr.io/fernandoenzo/nginx:latest
+ExecStart=/usr/bin/docker logs -f Nginx
+ExecStop=-/usr/bin/docker stop Nginx
 Restart=always
 SuccessExitStatus=143
 
