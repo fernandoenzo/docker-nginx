@@ -1,4 +1,4 @@
-FROM ghcr.io/fernandoenzo/debian:12
+FROM ghcr.io/fernandoenzo/debian:testing
 
 COPY scripts/basics /tmp
 COPY scripts/boot /usr/local/

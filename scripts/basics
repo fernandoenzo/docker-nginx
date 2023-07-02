@@ -1,8 +1,16 @@
 #!/bin/bash
 
+set -e  # Exit immediately if a command exits with a non-zero status.
 set -x  # All executed commands are printed to the terminal
 
-aptitude update ; aptitude install -y letsencrypt nginx python3-certbot-nginx
+export DEBIAN_FRONTEND=noninteractive
+
+gpg --no-default-keyring --keyring /tmp/temp.keyring --keyserver keyserver.ubuntu.com --recv-keys ABF5BD827BD9BF62
+gpg -o /etc/apt/keyrings/nginx.gpg --export --no-default-keyring --keyring /tmp/temp.keyring
+echo "deb [signed-by=/etc/apt/keyrings/nginx.gpg] http://nginx.org/packages/debian bookworm nginx" > /etc/apt/sources.list.d/nginx.list
+echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: -900\n" > /etc/apt/preferences.d/nginx
+
+aptitude update ; aptitude install -y nginx python3-certbot-nginx
 
 apt-get -y autoremove ; aptitude -y autoclean ; apt-get -y autoclean
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /root/.aptitude
