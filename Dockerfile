@@ -1,11 +1,8 @@
 FROM ghcr.io/fernandoenzo/debian:testing
 
-COPY scripts/basics /tmp
-COPY scripts/boot /usr/local/
-COPY static/bash_history /root/.bash_history
+COPY contents/ /tmp/contents
+RUN bash /tmp/contents/scripts/basics
 
-RUN bash /tmp/basics
-COPY static/default.template /etc/nginx/sites-available
+EXPOSE 80/tcp
+EXPOSE 443/tcp
 
-EXPOSE 80
-EXPOSE 443

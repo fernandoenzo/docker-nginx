@@ -5,12 +5,17 @@ set -x  # All executed commands are printed to the terminal
 
 export DEBIAN_FRONTEND=noninteractive
 
+cp /tmp/contents/scripts/boot /usr/local/boot
+cp /tmp/contents/static/bash_history /root/.bash_history
+
 gpg --no-default-keyring --keyring /tmp/temp.keyring --keyserver keyserver.ubuntu.com --recv-keys ABF5BD827BD9BF62
 gpg -o /etc/apt/keyrings/nginx.gpg --export --no-default-keyring --keyring /tmp/temp.keyring
 echo "deb [signed-by=/etc/apt/keyrings/nginx.gpg] http://nginx.org/packages/debian bookworm nginx" > /etc/apt/sources.list.d/nginx.list
 echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: -900\n" > /etc/apt/preferences.d/nginx
 
 aptitude update ; aptitude install -y nginx python3-certbot-nginx
+
+cp /tmp/contents/static/default.template /etc/nginx/sites-available
 
 apt-get -y autoremove ; aptitude -y autoclean ; apt-get -y autoclean
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /root/.aptitude
