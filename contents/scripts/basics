@@ -13,7 +13,7 @@ gpg -o /etc/apt/keyrings/nginx.gpg --export --no-default-keyring --keyring /tmp/
 echo "deb [signed-by=/etc/apt/keyrings/nginx.gpg] http://nginx.org/packages/debian bookworm nginx" > /etc/apt/sources.list.d/nginx.list
 echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: -900\n" > /etc/apt/preferences.d/nginx
 
-aptitude update ; aptitude install -y nginx python3-certbot-nginx
+aptitude update ; aptitude install -y nginx libnginx-mod-stream python3-certbot-nginx
 
 cp /tmp/contents/static/default.template /etc/nginx/sites-available
 
