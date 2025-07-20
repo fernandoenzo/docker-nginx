@@ -8,7 +8,9 @@ export DEBIAN_FRONTEND=noninteractive
 cp /tmp/contents/scripts/boot /usr/local/boot
 cp /tmp/contents/static/bash_history /root/.bash_history
 
+gpg --no-default-keyring --keyring /tmp/temp.keyring --keyserver keyserver.ubuntu.com --recv-keys 2FD21310B49F6B46
 gpg --no-default-keyring --keyring /tmp/temp.keyring --keyserver keyserver.ubuntu.com --recv-keys ABF5BD827BD9BF62
+gpg --no-default-keyring --keyring /tmp/temp.keyring --keyserver keyserver.ubuntu.com --recv-keys BCDCD8A38D88A2B3
 gpg -o /etc/apt/keyrings/nginx.gpg --export --no-default-keyring --keyring /tmp/temp.keyring
 echo "deb [signed-by=/etc/apt/keyrings/nginx.gpg] http://nginx.org/packages/debian bookworm nginx" > /etc/apt/sources.list.d/nginx.list
 echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: -900\n" > /etc/apt/preferences.d/nginx
