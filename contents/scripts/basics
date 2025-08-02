@@ -17,6 +17,8 @@ echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 
 
 aptitude update ; aptitude install -y nginx libnginx-mod-stream python3-certbot-nginx
 
+mkdir -p /etc/nginx/certs /etc/nginx/streams-available /etc/nginx/streams-enabled
+cp /tmp/contents/static/nginx.conf /etc/nginx/
 cp /tmp/contents/static/default.template /etc/nginx/sites-available
 
 apt-get -y autoremove ; aptitude -y autoclean ; apt-get -y autoclean
